@@ -5,10 +5,16 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
+const path = require('path');
+const { dirname } = require('path');
+const { fileURLToPath } = require('url');
+
 const contactRoutes = require('./routes/contact');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Security middleware
 app.use(helmet());
@@ -49,6 +55,14 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message,
   });
 });
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+
+  app.get('*all', (req, res) => {
+    res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
+  })
+}
 
 // MongoDB connection (optional — contact form works without it)
 if (process.env.MONGODB_URI) {
