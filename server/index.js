@@ -5,16 +5,10 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
-const path = require('path');
-const { dirname } = require('path');
-const { fileURLToPath } = require('url');
-
 const contactRoutes = require('./routes/contact');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Security middleware
 app.use(helmet());
