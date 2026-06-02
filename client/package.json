@@ -23,8 +23,9 @@
     "postcss": "^8.4.35"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite start",
+    "dev": "vite",
+    "build": "vite build",
     "test": "react-scripts test"
   },
   "browserslist": {
